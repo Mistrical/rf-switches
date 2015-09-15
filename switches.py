@@ -20,6 +20,7 @@ tx = lwrfCustom.tx(pi, 25) # Specify Pi, tx gpio, and baud.
 class Switch(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
+    type = db.Column(db.Text)
     room = db.Column(db.Text)
     on_command = db.Column(db.Text)
     off_command = db.Column(db.Text)
