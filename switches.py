@@ -50,6 +50,7 @@ def command_rf(id, command):
 def add_cors_headers(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
+    response.headers.add('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
     return response
 
