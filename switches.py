@@ -37,18 +37,21 @@ def command_rf(id, command):
     s = Switch.query.filter_by(id=id).first()
     
     if command == 1:
-        print "Turning on switch", s.name.encode('ascii','ignore'),  "with command ", s.on_command.encode('ascii','ignore')
+        print "Turning on", s.type.encode('ascii','ignore'), s.name.encode('ascii','ignore'), "with command", s.on_command.encode('ascii','ignore')
         tx.put(s.on_command.encode('ascii','ignore'), TX_REPEAT)
     elif command == 0:
-        print "Turning off switch",s.name.encode('ascii','ignore'), "with command ", s.off_command.encode('ascii','ignore')
+        print "Turning off", s.type.encode('ascii','ignore'), s.name.encode('ascii','ignore'), "with command", s.off_command.encode('ascii','ignore')
         tx.put(s.off_command.encode('ascii','ignore'), TX_REPEAT)
     
     return 'OK'
 
 
-@app.route('/')
-def index():
-        return app.send_static_file("index.html")
+@app.after_request
+def add_cors_headers(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    return response
 
 if __name__ == "__main__":
     app.debug = True
